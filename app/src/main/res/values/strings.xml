@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Nmedia</string>
     <string name="nmedia">NMedia!</string>
+    <string name="description_post_menu">Menu button</string>
+    <string name="author_avatar">The avatar of the author of the post</string>
+    <string name="hearts">The likes icon</string>
+    <string name="reposts">The reposts icon</string>
 </resources>
