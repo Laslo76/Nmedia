@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
     <dimen name="margi_h">16dp</dimen>
-    <dimen name="margi_l">4dp</dimen>
+    <dimen name="margi_l">8dp</dimen>
     <dimen name="image_layout_s">20dp</dimen>
     <dimen name="image_layout_l">48dp</dimen>
 </resources>

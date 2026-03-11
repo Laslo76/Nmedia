@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/top_barrier"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@sample/posts.json/data/authorAvatar" />
+        app:srcCompat="@drawable/post_avatar" />
 
     <TextView
         android:id="@+id/author"
@@ -81,47 +81,52 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="content"
-        />
+        app:constraint_referenced_ids="content" />
 
-    <ImageView
-        android:id="@+id/hearts"
+    <ImageButton
+        android:id="@+id/heart"
         android:layout_width="@dimen/image_layout_s"
         android:layout_height="@dimen/image_layout_s"
-        android:layout_marginBottom="@dimen/margi_h"
+        android:layout_marginTop="@dimen/image_layout_s"
+        android:paddingHorizontal="@dimen/margi_l"
         android:contentDescription="@string/hearts"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_topic_heart" />
 
     <TextView
-        android:id="@+id/count_hearts"
+        android:id="@+id/countHearts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margi_l"
+        android:layout_marginTop="@dimen/image_layout_s"
+        android:paddingHorizontal="@dimen/margi_l"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        app:layout_constraintBottom_toBottomOf="@id/hearts"
-        app:layout_constraintStart_toEndOf="@id/hearts"
+        app:layout_constraintBottom_toBottomOf="@id/heart"
+        app:layout_constraintStart_toEndOf="@id/heart"
 
         tools:text="@sample/posts.json/data/likes" />
-    <ImageView
+    <ImageButton
         android:id="@+id/reposts"
         android:layout_width="@dimen/image_layout_s"
         android:layout_height="@dimen/image_layout_s"
-        android:layout_marginBottom="@dimen/margi_h"
+        android:layout_marginTop="@dimen/image_layout_s"
         android:contentDescription="@string/reposts"
         android:layout_marginHorizontal="@dimen/margi_l"
+        android:paddingHorizontal="@dimen/margi_l"
+        android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        app:layout_constraintStart_toEndOf="@id/count_hearts"
+        app:layout_constraintStart_toEndOf="@id/countHearts"
         app:srcCompat="@drawable/ic_topic_repost" />
 
     <TextView
-        android:id="@+id/count_reposts"
+        android:id="@+id/countReposts"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margi_l"
+        android:layout_marginTop="@dimen/image_layout_s"
+        android:paddingHorizontal="@dimen/margi_l"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        app:layout_constraintBottom_toBottomOf="@id/hearts"
+        app:layout_constraintBottom_toBottomOf="@id/heart"
         app:layout_constraintStart_toEndOf="@id/reposts"
         tools:text="@sample/posts.json/data/repost" />
 
@@ -129,22 +134,23 @@
         android:id="@+id/views"
         android:layout_width="@dimen/image_layout_s"
         android:layout_height="@dimen/image_layout_s"
-        android:layout_marginBottom="@dimen/margi_h"
+        android:layout_marginTop="@dimen/image_layout_s"
         android:contentDescription="@string/reposts"
         android:layout_marginHorizontal="@dimen/margi_l"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        app:layout_constraintEnd_toStartOf="@id/count_views"
+        app:layout_constraintEnd_toStartOf="@id/countViews"
         app:srcCompat="@drawable/ic_topic_show" />
 
     <TextView
-        android:id="@+id/count_views"
+        android:id="@+id/countViews"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margi_l"
+        android:layout_marginTop="@dimen/image_layout_s"
+        android:layout_marginRight="@dimen/margi_l"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        app:layout_constraintBottom_toBottomOf="@id/hearts"
+        app:layout_constraintBottom_toBottomOf="@id/heart"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@sample/posts.json/data/views" />
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
