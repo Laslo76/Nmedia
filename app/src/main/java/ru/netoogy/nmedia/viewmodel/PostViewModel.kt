@@ -6,8 +6,8 @@ import ru.netoogy.nmedia.repository.PostRepositoryInMemoryImpl
 
 class PostViewModel: ViewModel() {
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
-    val data = repository.get()
-    fun like() = repository.like()
-    fun repost() = repository.repost()
+    val data = repository.getAll()
+    fun likeById(id: Int) = repository.likeById(id)
+    fun repostById(id: Int) = repository.repostById(id)
 
 }
