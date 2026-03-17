@@ -2,6 +2,8 @@ package ru.netoogy.nmedia.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netoogy.nmedia.R
 import ru.netoogy.nmedia.databinding.CardPostBinding
@@ -15,13 +17,8 @@ typealias OnRepostListener = (post: Post) -> Unit
 class PostAdapter (
     private val onLikeListener: OnLikeListener,
     private val onRepostListener: OnRepostListener
-): RecyclerView.Adapter<PostViewHolder>()
+): ListAdapter<Post, PostViewHolder>(PostDiffCallback)
 {
-    var list = emptyList<Post>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -32,11 +29,9 @@ class PostAdapter (
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = list[position]
+        val post = getItem(position)
         holder.bind(post)
     }
-
-    override fun getItemCount(): Int = list.size
 }
 
 class PostViewHolder(
@@ -58,7 +53,10 @@ class PostViewHolder(
             reposts.setOnClickListener { onRepostListener(post) }
         }
     }
+}
 
+object PostDiffCallback: DiffUtil.ItemCallback<Post>() {
+    override fun areItemsTheSame(oldItem: Post, newItem: Post) = oldItem.id == newItem.id
 
-
+    override fun areContentsTheSame(oldItem: Post, newItem: Post) = oldItem == newItem
 }

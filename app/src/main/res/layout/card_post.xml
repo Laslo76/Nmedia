@@ -145,7 +145,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/image_layout_s"
-        android:layout_marginRight="@dimen/margi_l"
+        android:layout_marginEnd="@dimen/margi_l"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
         app:layout_constraintBottom_toBottomOf="@id/heart"
         app:layout_constraintEnd_toEndOf="parent"
