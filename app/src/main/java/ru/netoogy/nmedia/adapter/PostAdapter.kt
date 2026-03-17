@@ -13,6 +13,7 @@ typealias OnRepostListener = (post: Post) -> Unit
 
 
 class PostAdapter (
+    private val onLikeListener: OnLikeListener,
     private val onRepostListener: OnRepostListener
 ): RecyclerView.Adapter<PostViewHolder>()
 {
@@ -27,7 +28,7 @@ class PostAdapter (
         viewType: Int
     ): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onRepostListener, onRepostListener)
+        return PostViewHolder(binding, onLikeListener, onRepostListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {

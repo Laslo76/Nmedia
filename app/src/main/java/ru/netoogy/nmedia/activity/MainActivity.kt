@@ -23,7 +23,7 @@ class  MainActivity : AppCompatActivity() {
         }
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter() { viewModel.likeById(it.id)}
+        val adapter = PostAdapter( { viewModel.likeById(it.id)}, {viewModel.repostById(it.id)})
 
         binding.listposts.adapter = adapter
         viewModel.data.observe(this) {posts -> adapter.list = posts}
