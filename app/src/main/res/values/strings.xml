@@ -5,4 +5,5 @@
     <string name="author_avatar">The avatar of the author of the post</string>
     <string name="hearts">The likes icon</string>
     <string name="reposts">The reposts icon</string>
+    <string name="menu_remove">Remove</string>
 </resources>

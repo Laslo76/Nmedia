@@ -6,8 +6,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import ru.netoogy.nmedia.adapter.OnInteractionListener
 import ru.netoogy.nmedia.adapter.PostAdapter
 import ru.netoogy.nmedia.databinding.ActivityMainBinding
+import ru.netoogy.nmedia.dto.Post
 import ru.netoogy.nmedia.viewmodel.PostViewModel
 
 class  MainActivity : AppCompatActivity() {
@@ -23,7 +25,19 @@ class  MainActivity : AppCompatActivity() {
         }
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter( { viewModel.likeById(it.id)}, {viewModel.repostById(it.id)})
+        val adapter = PostAdapter( object : OnInteractionListener {
+            override fun onLike(post: Post) {
+                viewModel.likeById(post.id)
+            }
+
+            override fun onRepost( post: Post) {
+                viewModel.repostById(post.id)
+            }
+
+            override fun onRemove( post: Post) {
+                viewModel.removeById( post.id )
+            }
+        })
 
         binding.listPosts.adapter = adapter
         viewModel.data.observe(this) {posts -> adapter.submitList(posts)}
