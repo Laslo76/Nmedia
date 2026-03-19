@@ -16,6 +16,8 @@ interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onRepost(post: Post) {}
     fun onRemove(post: Post) {}
+
+    fun onEdit(post: Post) {}
 }
 
 class PostAdapter (
@@ -61,6 +63,10 @@ class PostViewHolder(
                         when (item.itemId) {
                             R.id.remove -> {
                                 onInteractionListener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                onInteractionListener.onEdit(post)
                                 true
                             }
                             else -> false

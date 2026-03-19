@@ -6,4 +6,9 @@
     <string name="hearts">The likes icon</string>
     <string name="reposts">The reposts icon</string>
     <string name="menu_remove">Remove</string>
+    <string name="menu_edit">Edit</string>
+    <string name="post_text">Post Text</string>
+    <string name="error_empty_content">Content can\'t be empty</string>
+    <string name="editing_content_label">Edit Message</string>
+    <string name="cancel_editing">Cancel</string>
 </resources>

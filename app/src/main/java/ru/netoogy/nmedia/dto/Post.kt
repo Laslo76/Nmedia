@@ -1,13 +1,12 @@
 package ru.netoogy.nmedia.dto
 
 data class Post (
-    val id: Int,
-    val author: String,
-    val published: String,
-    val content: String,
+    val id: Int = 0,
+    val author: String = "NoName",
+    val published: String = "now",
+    val content: String = "",
     val likes: Int = 0,
-    val isLiked: Boolean,
+    val isLiked: Boolean = false,
     val shared: Int = 0,
     val views: Int = 0
-
 )
