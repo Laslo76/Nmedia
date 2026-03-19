@@ -57,7 +57,7 @@ class  MainActivity : AppCompatActivity() {
 
             if (post.id != 0) {
                 with(binding.content) {
-                    editGroup.visibility = View.VISIBLE
+
                     setText(post.content)
                     AndroidUtils.showKeyboard(this)
                 }
@@ -95,6 +95,13 @@ class  MainActivity : AppCompatActivity() {
                 AndroidUtils.hideKeyboard(this)
             }
             viewModel.cancel()
+        }
+
+        binding.content.setOnFocusChangeListener {view, hasFocus ->
+            if (hasFocus) {
+                // Если EditText получил фокус, показываем группу
+                editGroup.visibility = View.VISIBLE
+            }
         }
     }
 

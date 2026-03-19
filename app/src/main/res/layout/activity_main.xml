@@ -40,6 +40,8 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/margi_h"
             android:text="@string/editing_content_label"
+            android:textStyle="bold"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 

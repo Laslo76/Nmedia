@@ -13,6 +13,6 @@ interface PostRepository {
 
     fun save(post: Post)
 
-    fun cancel(post: Post)
+
 }
 
