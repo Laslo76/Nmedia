@@ -94,6 +94,7 @@ class  MainActivity : AppCompatActivity() {
 
                 AndroidUtils.hideKeyboard(this)
             }
+            viewModel.cancel()
         }
     }
 

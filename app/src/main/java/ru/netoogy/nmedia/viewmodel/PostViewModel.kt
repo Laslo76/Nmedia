@@ -33,4 +33,8 @@ class PostViewModel: ViewModel() {
             edited.value = emptyPost
         }
     }
+
+    fun cancel() {
+        edited.value = emptyPost
+    }
 }

@@ -90,4 +90,9 @@ class PostRepositoryInMemoryImpl: PostRepository {
         data.value = posts
     }
 
+    override fun cancel(post: Post) {
+        TODO("Not yet implemented")
+    }
+
+
 }

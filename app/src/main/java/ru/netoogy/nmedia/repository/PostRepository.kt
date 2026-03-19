@@ -12,5 +12,7 @@ interface PostRepository {
     fun removeById(id: Int)
 
     fun save(post: Post)
+
+    fun cancel(post: Post)
 }
 
