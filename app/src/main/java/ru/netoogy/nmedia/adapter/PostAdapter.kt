@@ -48,11 +48,10 @@ class PostViewHolder(
             published.text = post.published
             content.text = post.content
             countViews.text = countToString(post.views)
-            countHearts.text = countToString(post.likes)
-            countReposts.text = countToString(post.shared)
-            heart.setImageResource(
-                if (post.isLiked) R.drawable.ic_topic_heart_liked else R.drawable.ic_topic_heart
-            )
+
+            reposts.text = countToString(post.shared)
+            heart.isChecked = post.isLiked
+            heart.text = "${post.likes}"
             heart.setOnClickListener { onInteractionListener.onLike(post) }
             reposts.setOnClickListener { onInteractionListener.onRepost(post) }
 

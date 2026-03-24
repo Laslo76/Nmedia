@@ -18,6 +18,7 @@ import ru.netoogy.nmedia.util.AndroidUtils
 import ru.netoogy.nmedia.viewmodel.PostViewModel
 
 class  MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
