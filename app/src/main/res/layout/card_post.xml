@@ -133,4 +133,15 @@
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
         tools:text="1.5M" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/video"
+        style="@style/VideoButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/description_post_video"
+        app:icon="@android:drawable/ic_media_play"
+        app:layout_constraintTop_toBottomOf="@id/countViews"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

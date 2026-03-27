@@ -1,6 +1,7 @@
 package ru.netoogy.nmedia.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
@@ -16,8 +17,8 @@ interface OnInteractionListener {
     fun onLike(post: Post) {}
     fun onRepost(post: Post) {}
     fun onRemove(post: Post) {}
-
     fun onEdit(post: Post) {}
+    fun onPlayVideo(post: Post) {}
 }
 
 class PostAdapter (
@@ -54,6 +55,11 @@ class PostViewHolder(
             heart.text = "${post.likes}"
             heart.setOnClickListener { onInteractionListener.onLike(post) }
             reposts.setOnClickListener { onInteractionListener.onRepost(post) }
+
+            video.visibility = if (post.videoUrl.isNullOrEmpty()) View.GONE else View.VISIBLE
+            video.setOnClickListener {
+                onInteractionListener.onPlayVideo(post)
+            }
 
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {

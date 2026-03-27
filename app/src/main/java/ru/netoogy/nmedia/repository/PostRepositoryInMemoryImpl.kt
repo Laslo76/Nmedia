@@ -14,7 +14,8 @@ class PostRepositoryInMemoryImpl: PostRepository {
             10,
             false,
             999999,
-            1500000
+            1500000,
+            "https://rutube.ru/video/0ea5296cd72f4e7a29fcdfc2770ed033"
         ),
         Post(
             2,

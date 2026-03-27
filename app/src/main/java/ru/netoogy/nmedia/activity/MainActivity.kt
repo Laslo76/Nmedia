@@ -1,20 +1,22 @@
 package ru.netoogy.nmedia.activity
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import ru.netoogy.nmedia.R
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import ru.netoogy.nmedia.adapter.OnInteractionListener
 import ru.netoogy.nmedia.adapter.PostAdapter
 import ru.netoogy.nmedia.databinding.ActivityMainBinding
 import ru.netoogy.nmedia.dto.Post
-import ru.netoogy.nmedia.util.AndroidUtils
+
 import ru.netoogy.nmedia.viewmodel.PostViewModel
 
 class  MainActivity : AppCompatActivity() {
@@ -32,78 +34,61 @@ class  MainActivity : AppCompatActivity() {
         }
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter( object : OnInteractionListener {
+
+        val newPostLauncher = registerForActivityResult(NewPostContract) {
+            val result = it ?: return@registerForActivityResult
+            viewModel.save(result)
+        }
+
+        val adapter = PostAdapter(object : OnInteractionListener {
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
             }
 
-            override fun onRepost( post: Post) {
+            override fun onRepost(post: Post) {
+                val intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, post.content)
+                }
+                val chooser =
+                    Intent.createChooser(intent, getString(R.string.description_post_share))
+                startActivity(chooser)
                 viewModel.repostById(post.id)
             }
 
-            override fun onRemove( post: Post) {
-                viewModel.removeById( post.id )
+            override fun onRemove(post: Post) {
+                viewModel.removeById(post.id)
             }
+
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
+                newPostLauncher.launch(post.content)
+            }
+
+            override fun onPlayVideo(post: Post) {
+                post.videoUrl?.let { url ->
+                    try {
+                        val videoId = post.videoUrl.split("/").getOrNull(4)
+
+                        if (videoId != null) {
+                            val intent = Intent(Intent.ACTION_VIEW, post.videoUrl.toUri())
+
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(intent)
+                        }
+                    } catch (e: ActivityNotFoundException) {
+                       Toast.makeText(this@MainActivity, "Нет приложения для просмотра видео", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         })
 
-        val editGroup: ConstraintLayout = findViewById(R.id.editGroup)
-
         binding.listPosts.adapter = adapter
-        viewModel.data.observe(this) {posts -> adapter.submitList(posts)}
+        viewModel.data.observe(this) { posts -> adapter.submitList(posts) }
 
-        viewModel.edited.observe(this) { post ->
-
-            if (post.id != 0) {
-                with(binding.content) {
-
-                    setText(post.content)
-                    AndroidUtils.showKeyboard(this)
-                }
-            }
-        }
-
-        binding.save.setOnClickListener {
-
-            with(binding.content) {
-                if (text.isNullOrBlank()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        context.getString(R.string.error_empty_content),
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    return@setOnClickListener
-                }
-
-                viewModel.save(text.toString())
-
-                setText("")
-                clearFocus()
-                editGroup.visibility = View.GONE
-
-                AndroidUtils.hideKeyboard(this)
-            }
-        }
-
-        binding.cancel.setOnClickListener {
-            with(binding.content) {
-                setText("")
-                clearFocus()
-                editGroup.visibility = View.GONE
-
-                AndroidUtils.hideKeyboard(this)
-            }
-            viewModel.cancel()
-        }
-
-        binding.content.setOnFocusChangeListener {view, hasFocus ->
-            if (hasFocus) {
-                // Если EditText получил фокус, показываем группу
-                editGroup.visibility = View.VISIBLE
-            }
+        binding.add.setOnClickListener {
+            newPostLauncher.launch("Текст поста по умолчанию")
         }
     }
-
 }

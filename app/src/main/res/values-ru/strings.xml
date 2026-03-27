@@ -12,4 +12,8 @@
     <string name="error_empty_content">Строка не может быть пустой</string>
     <string name="editing_content_label">Редактирование сообщения</string>
     <string name="cancel_editing">Отмена</string>
+    <string name="description_post_share">Отправить сообщение</string>
+    <string name="description_post_save">Сохранить пост</string>
+    <string name="description_post_add">Создать пост</string>
+    <string name="description_post_video">Прикрепленное видео Rutube</string>
 </resources>
