@@ -47,7 +47,7 @@ object NewPostContract: ActivityResultContract<String?, String?>(){
     override fun createIntent(context: Context, input: String?): Intent {
         val intent = Intent(context, NewPostActivity::class.java)
         // Передаем строку через extra. Если input == null, передаем пустую строку или null.
-        input?.let { intent.putExtra(KEY_TEXT, it) }
+        input?.let { intent.putExtra(KEY_TEXT, it)}
         return intent
     }
 

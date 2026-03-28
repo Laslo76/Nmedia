@@ -36,8 +36,11 @@ class  MainActivity : AppCompatActivity() {
         val viewModel: PostViewModel by viewModels()
 
         val newPostLauncher = registerForActivityResult(NewPostContract) {
-            val result = it ?: return@registerForActivityResult
-            viewModel.save(result)
+            if (it == null) {
+                viewModel.cancel()
+            } else {
+                viewModel.save(it)
+            }
         }
 
         val adapter = PostAdapter(object : OnInteractionListener {
@@ -63,7 +66,8 @@ class  MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                newPostLauncher.launch(post.content)
+                val resultLauncher = newPostLauncher.launch(post.content)
+                viewModel.cancel()
             }
 
             override fun onPlayVideo(post: Post) {
