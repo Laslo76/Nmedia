@@ -66,8 +66,7 @@ class  MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
-                val resultLauncher = newPostLauncher.launch(post.content)
-                viewModel.cancel()
+                newPostLauncher.launch(post.content)
             }
 
             override fun onPlayVideo(post: Post) {
