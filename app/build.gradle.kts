@@ -1,3 +1,6 @@
+import org.gradle.accessors.dm.LibrariesForLibs
+
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -46,8 +49,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+
     testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.android.material:material:1.13.0")
+
+    implementation("com.google.code.gson:gson:2.10.1")
 }

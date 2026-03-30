@@ -1,16 +1,18 @@
 package ru.netoogy.nmedia.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.netoogy.nmedia.dto.Post
 import ru.netoogy.nmedia.repository.PostRepository
-import ru.netoogy.nmedia.repository.PostRepositoryInMemoryImpl
+import ru.netoogy.nmedia.repository.PostRepositoryInFileImpl
 import kotlin.Int
 
 private val emptyPost = Post()
 
-class PostViewModel: ViewModel() {
-    private val repository: PostRepository = PostRepositoryInMemoryImpl()
+class PostViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: PostRepository = PostRepositoryInFileImpl(application)
     val data = repository.getAll()
 
     val edited = MutableLiveData(emptyPost)
