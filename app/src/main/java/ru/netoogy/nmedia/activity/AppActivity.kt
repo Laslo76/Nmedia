@@ -1,25 +1,23 @@
 package ru.netoogy.nmedia.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.SeekBar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.snackbar.Snackbar
 import ru.netoogy.nmedia.R
-import ru.netoogy.nmedia.databinding.ActivityIntentHandlerBinding
+import ru.netoogy.nmedia.databinding.ActivityAppBinding
 
-class IntentHandlerActivity : AppCompatActivity() {
+class AppActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val binding = ActivityIntentHandlerBinding.inflate(layoutInflater)
+        val binding = ActivityAppBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

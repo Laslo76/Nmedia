@@ -1,7 +1,6 @@
 package ru.netoogy.nmedia.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ru.netoogy.nmedia.dto.Post
 
 interface PostRepository {
@@ -12,5 +11,7 @@ interface PostRepository {
     fun removeById(id: Int)
 
     fun save(post: Post)
+
+    fun getById(id: Int): Post?
 }
 

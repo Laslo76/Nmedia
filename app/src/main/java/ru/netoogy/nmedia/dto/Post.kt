@@ -1,8 +1,5 @@
 package ru.netoogy.nmedia.dto
 
-import android.os.Parcel
-import android.os.Parcelable
-
 data class Post (
     val id: Int = 0,
     val author: String = "NoName",

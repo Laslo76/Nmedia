@@ -19,6 +19,8 @@ interface OnInteractionListener {
     fun onRemove(post: Post) {}
     fun onEdit(post: Post) {}
     fun onPlayVideo(post: Post) {}
+
+    fun onPostClick(post: Post) {}
 }
 
 class PostAdapter (
@@ -44,6 +46,10 @@ class PostViewHolder(
     private val binding: CardPostBinding,
     private val onInteractionListener: OnInteractionListener): RecyclerView.ViewHolder(binding.root) {
     fun bind(post: Post) {
+        binding.root.setOnClickListener {
+            onInteractionListener.onPostClick(post)
+        }
+
         binding.apply {
             author.text = post.author
             published.text = post.published

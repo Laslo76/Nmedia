@@ -49,6 +49,9 @@ class PostRepositoryInFileImpl(private val context: Context) : PostRepository {
         data.value = posts
     }
 
+    override fun getById(id: Int) : Post? = posts.find { it.id == id}
+
+
     override fun save(post: Post) {
         if (post.id == 0) {
             posts = listOf(
@@ -80,6 +83,4 @@ class PostRepositoryInFileImpl(private val context: Context) : PostRepository {
         private val gson = Gson()
         private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
     }
-
-
 }

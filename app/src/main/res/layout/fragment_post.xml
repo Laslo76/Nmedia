@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/margin_l">
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_l"
+        tools:context=".fragment.PostFragment">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/menu"
@@ -16,8 +24,7 @@
         android:contentDescription="@string/description_post_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:icon="@drawable/ic_more_vert_24"
-        android:clickable="true"/>
+        app:icon="@drawable/ic_more_vert_24" />
 
     <ImageView
         android:id="@+id/avatar"
@@ -96,8 +103,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
         tools:checked="true"
-        tools:text="20"
-        android:clickable="true"/>
+        tools:text="20" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/reposts"
@@ -109,8 +115,7 @@
         app:icon="@drawable/ic_topic_repost"
         app:layout_constraintStart_toEndOf="@id/heart"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        tools:text="995"
-        android:clickable="true"/>
+        tools:text="995" />
 
     <ImageView
         android:id="@+id/views"
@@ -122,8 +127,7 @@
         android:contentDescription="@string/reposts"
         app:layout_constraintEnd_toStartOf="@id/countViews"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        app:srcCompat="@drawable/ic_topic_show"
-        android:clickable="true"/>
+        app:srcCompat="@drawable/ic_topic_show" />
 
     <TextView
         android:id="@+id/countViews"
@@ -135,7 +139,6 @@
         app:layout_constraintBottom_toBottomOf="@id/heart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bottom_barrier"
-        android:clickable="true"
         tools:text="1.5M" />
 
     <com.google.android.material.button.MaterialButton
@@ -147,7 +150,6 @@
         android:contentDescription="@string/description_post_video"
         app:icon="@android:drawable/ic_media_play"
         app:layout_constraintTop_toBottomOf="@id/countViews"
-        android:clickable="true"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

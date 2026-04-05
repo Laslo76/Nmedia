@@ -72,6 +72,8 @@ class PostRepositoryInMemoryImpl: PostRepository {
         data.value = posts
     }
 
+    override fun getById(id: Int) : Post? = posts.find { it.id == id}
+
     override fun save(post: Post) {
         if (post.id == 0) {
             posts = listOf(

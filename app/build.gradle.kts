@@ -2,6 +2,7 @@
 
 plugins {
     alias(libs.plugins.android.application)
+    id("androidx.navigation.safeargs") version "2.9.7"
 }
 
 android {
@@ -24,6 +25,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+
     }
 
     buildTypes {
@@ -49,11 +51,12 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
 
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    implementation("com.google.android.material:material:1.13.0")
 
     implementation(libs.gson)
 }
