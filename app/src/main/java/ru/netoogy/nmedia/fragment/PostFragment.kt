@@ -78,54 +78,57 @@ class PostFragment : Fragment()  {
 
         viewModel.data.observe(viewLifecycleOwner) { posts ->
             val post = viewModel.getById(viewModel.viewRecordID)
-            binding.apply {
-                author.text = post?.author
-                published.text = post?.published
-                content.text = post?.content
-                countViews.text = "${post?.views}"
+            if (post != null) {
+                binding.apply {
+                    author.text = post.author
+                    published.text = post.published
+                    content.text = post.content
+                    countViews.text = "${post.views}"
 
-                reposts.text = "${post?.shared}"
-                heart.isChecked = post?.isLiked ?: false
-                heart.text = "${post?.likes}"
+                    reposts.text = "${post.shared}"
+                    heart.isChecked = post.isLiked
+                    heart.text = "${post.likes}"
 
-                video.visibility = if (post?.videoUrl.isNullOrEmpty()) View.GONE else View.VISIBLE
-                video.setOnClickListener {
-                    onPlayVideo(post!!)
-                }
+                    video.visibility =
+                        if (post.videoUrl.isNullOrEmpty()) View.GONE else View.VISIBLE
+                    video.setOnClickListener {
+                        onPlayVideo(post)
+                    }
 
-                heart.setOnClickListener {
-                    onLikePost(post!!)
-                }
+                    heart.setOnClickListener {
+                        onLikePost(post)
+                    }
 
-                reposts.setOnClickListener {
-                    onRepost(post!!)
-                }
+                    reposts.setOnClickListener {
+                        onRepost(post)
+                    }
 
-                menu.setOnClickListener {
-                    PopupMenu(it.context, it).apply {
-                        inflate(R.menu.options_post)
-                        setOnMenuItemClickListener { item ->
-                            when (item.itemId) {
-                                R.id.remove -> {
-                                    onRemove(post!!)
-                                    true
+                    menu.setOnClickListener {
+                        PopupMenu(it.context, it).apply {
+                            inflate(R.menu.options_post)
+                            setOnMenuItemClickListener { item ->
+                                when (item.itemId) {
+                                    R.id.remove -> {
+                                        onRemove(post)
+                                        true
+                                    }
+
+                                    R.id.edit -> {
+                                        onEdit(post)
+                                        true
+                                    }
+                                    else -> false
                                 }
-                                R.id.edit -> {
-                                    onEdit(post!!)
-                                    true
-                                }
-                                else -> false
                             }
-                        }
-                    }.show()
+                        }.show()
+                    }
                 }
-            }
+            } else findNavController().navigateUp()
         }
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-                _binding = null
+            _binding = null
     }
 }
