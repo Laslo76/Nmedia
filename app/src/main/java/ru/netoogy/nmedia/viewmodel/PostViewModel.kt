@@ -37,7 +37,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
                 )
             }
         }
-        cancel()
     }
 
     fun cancel() {

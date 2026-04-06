@@ -30,9 +30,8 @@ class NewPostFragment : Fragment() {
             if (text.isNotBlank()) {
                 viewModel.save(text)
             }
-
             AndroidUtils.hideKeyboard(requireView())
-            findNavController().navigateUp()
+             findNavController().navigateUp()
         }
         return binding.root
     }
@@ -51,6 +50,7 @@ class NewPostFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.cancel()
         _binding = null
     }
 }
