@@ -4,19 +4,25 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ru.netology.nmedia.db.AppDb
 import ru.netoogy.nmedia.dto.Post
 import ru.netoogy.nmedia.repository.PostRepository
 import ru.netoogy.nmedia.repository.PostRepositoryInFileImpl
+import ru.netoogy.nmedia.repository.PostRepositorySQLiteImpl
 import kotlin.Int
 
 private val emptyPost = Post()
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: PostRepository = PostRepositoryInFileImpl(application)
+    //private val repository: PostRepository = PostRepositoryInFileImpl(application)
+    private val repository: PostRepository = PostRepositorySQLiteImpl(
+            AppDb.getInstance(application).postDao
+    )
     val data = repository.getAll()
     var viewRecordID: Int = 0
     private val _edited = MutableLiveData<Post?>(emptyPost)
     val edited: LiveData<Post?> = _edited
+    var unSavedContent: String = ""
     fun getById(id: Int) = repository.getById(id)
     fun likeById(id: Int) = repository.likeById(id)
     fun repostById(id: Int) = repository.repostById(id)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -13,10 +14,19 @@ import ru.netoogy.nmedia.viewmodel.PostViewModel
 import kotlin.getValue
 
 class NewPostFragment : Fragment() {
-
+    private var flagEdit: Boolean = false
     private val viewModel: PostViewModel by activityViewModels()
     private var _binding: FragmentNewPostBinding? = null
     private val binding get() = _binding!!
+
+    // Этот объект будет "слушать" нажатие Назад
+    private val backPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+        override fun handleOnBackPressed() {
+            // Здесь пишем логику, которая должна выполниться при нажатии Назад
+            if (!flagEdit) viewModel.unSavedContent = binding.edit.text.toString()
+            isEnabled = false
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,6 +43,7 @@ class NewPostFragment : Fragment() {
             AndroidUtils.hideKeyboard(requireView())
              findNavController().navigateUp()
         }
+        requireActivity().onBackPressedDispatcher.addCallback(this, backPressedCallback)
         return binding.root
     }
 
@@ -42,7 +53,11 @@ class NewPostFragment : Fragment() {
         viewModel.edited.observe(viewLifecycleOwner) { post ->
 
             if (post?.id != 0) {
+                flagEdit = true
                 binding.edit.setText(post?.content)
+            } else {
+                flagEdit = false
+                binding.edit.setText(viewModel.unSavedContent)
             }
             AndroidUtils.showKeyboard(binding.edit)
         }
