@@ -20,7 +20,7 @@ class NewPostFragment : Fragment() {
     private val binding get() = _binding!!
 
     // Этот объект будет "слушать" нажатие Назад
-    private val backPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             // Здесь пишем логику, которая должна выполниться при нажатии Назад
             if (!flagEdit) viewModel.unSavedContent = binding.edit.text.toString()
@@ -43,12 +43,13 @@ class NewPostFragment : Fragment() {
             AndroidUtils.hideKeyboard(requireView())
              findNavController().navigateUp()
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, backPressedCallback)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
 
         viewModel.edited.observe(viewLifecycleOwner) { post ->
 
