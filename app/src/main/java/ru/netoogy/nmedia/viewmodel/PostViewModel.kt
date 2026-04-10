@@ -2,50 +2,49 @@ package ru.netoogy.nmedia.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ru.netology.nmedia.db.AppDb
+import ru.netoogy.nmedia.db.AppDb
 import ru.netoogy.nmedia.dto.Post
 import ru.netoogy.nmedia.repository.PostRepository
-import ru.netoogy.nmedia.repository.PostRepositoryInFileImpl
-import ru.netoogy.nmedia.repository.PostRepositorySQLiteImpl
+import ru.netoogy.nmedia.repository.PostRepositoryRoomImpl
 import kotlin.Int
 
 private val emptyPost = Post()
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
-    //private val repository: PostRepository = PostRepositoryInFileImpl(application)
-    private val repository: PostRepository = PostRepositorySQLiteImpl(
-            AppDb.getInstance(application).postDao
+    private val repository: PostRepository = PostRepositoryRoomImpl(
+        AppDb.getInstance(application).postDao
     )
     val data = repository.getAll()
+    val edited = MutableLiveData(emptyPost)
     var viewRecordID: Int = 0
-    private val _edited = MutableLiveData<Post?>(emptyPost)
-    val edited: LiveData<Post?> = _edited
     var unSavedContent: String = ""
-    fun getById(id: Int) = repository.getById(id)
+    fun save(content: String) {
+        edited.value?.let {
+            val text = content.trim()
+            if (it.content != text) {
+                repository.save(it.copy(content = text))
+            }
+        }
+        edited.value = emptyPost
+    }
+
     fun likeById(id: Int) = repository.likeById(id)
-    fun repostById(id: Int) = repository.repostById(id)
+
     fun removeById(id: Int) = repository.removeById(id)
+
+    fun getById(id: Int) = repository.getById(id)
+
+    fun repostById(id: Int) = repository.repostById(id)
+
     fun edit(post: Post) {
-        _edited.value = post
+        edited.value = post
     }
     fun view(post: Post) {
         viewRecordID = post.id
     }
-    fun save(content: String) {
-        _edited.value?.let { post ->
-            val trimmed = content.trim()
-
-            if (post.content != trimmed) {
-                repository.save(
-                    post.copy(content = trimmed)
-                )
-            }
-        }
-    }
 
     fun cancel() {
-        _edited.value = emptyPost
+        edited.value = emptyPost
     }
 }

@@ -1,21 +1,15 @@
-
-
 plugins {
     alias(libs.plugins.android.application)
-    id("androidx.navigation.safeargs") version "2.9.7"
+    alias(libs.plugins.androidx.navigation.safeargs)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
     namespace = "ru.netoogy.nmedia"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
-
+    compileSdk = 36
     defaultConfig {
-        applicationId = "ru.netoogy.nmedia"
-        minSdk = 26
+        applicationId = "ru.netology.nmedia"
+        minSdk = 24
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -25,16 +19,12 @@ android {
 
     buildFeatures {
         viewBinding = true
-
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -50,13 +40,12 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
-
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(libs.gson)
+    implementation(libs.androidx.room)
+    ksp(libs.androidx.room.compiler)
 }
